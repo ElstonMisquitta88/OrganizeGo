@@ -21,7 +21,10 @@ type MemoryTodoRepo struct {
 	nextID int
 }
 
-// Explain what this function does
+// IMP
+// It prepares the TodoRepo before use.
+// Returns a pointer to the MemoryTodoRepo instance.
+
 func NewMemoryTodoRepo() *MemoryTodoRepo {
 	return &MemoryTodoRepo{
 		todos:  []models.Todo{}, // empty slice to start

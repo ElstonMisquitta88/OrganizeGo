@@ -9,10 +9,13 @@ import (
 func NewRouter(h *handlers.TodoHandler) http.Handler {
 	mux := http.NewServeMux()
 
-	// /todos -> list + create
-	mux.HandleFunc("/todos", h.HandleTodos)
+	// /todos/ListTodos -> List
+	mux.HandleFunc("/todos/ListTodos", h.ListTodos)
 
-	// /todos/{id} -> get, update, delete
+	// /todos/Create -> Create
+	mux.HandleFunc("/todos/Create", h.CreateTodo)
+
+	// /todos/{id} -> Fetch by Id
 	mux.HandleFunc("/todos/", h.HandleTodoByID)
 
 	return mux

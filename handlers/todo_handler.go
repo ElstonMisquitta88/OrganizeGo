@@ -1,26 +1,27 @@
 package handlers
 
 import (
+	"OrganizeGo/repository"
 	"encoding/json"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
-
-	"OrganizeGo/repository"
 )
 
 // TodoHandler handles HTTP requests for todos.
+// like a private field inside the class in C#
 type TodoHandler struct {
 	repo repository.TodoRepository
 }
 
+// Dependency Injection + Loose Coupling
 // NewTodoHandler creates a new handler with the given repository.
 func NewTodoHandler(repo repository.TodoRepository) *TodoHandler {
 	return &TodoHandler{repo: repo}
 }
 
-// HandleTodos routes based on method for /todos
+/* // HandleTodos routes based on method for /todos
 func (h *TodoHandler) HandleTodos(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case http.MethodGet:
@@ -32,6 +33,9 @@ func (h *TodoHandler) HandleTodos(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+
+
+} */
 // HandleTodoByID routes based on method for /todos/{id}
 func (h *TodoHandler) HandleTodoByID(w http.ResponseWriter, r *http.Request) {
 	id, err := extractIDFromPath(r.URL.Path)
@@ -48,7 +52,7 @@ func (h *TodoHandler) HandleTodoByID(w http.ResponseWriter, r *http.Request) {
 }
 
 // listTodos handles GET /todos
-func (h *TodoHandler) listTodos(w http.ResponseWriter, r *http.Request) {
+func (h *TodoHandler) ListTodos(w http.ResponseWriter, r *http.Request) {
 	todos, err := h.repo.List()
 	if err != nil {
 		log.Printf("list error: %v", err)
@@ -59,7 +63,7 @@ func (h *TodoHandler) listTodos(w http.ResponseWriter, r *http.Request) {
 }
 
 // createTodo handles POST /todos
-func (h *TodoHandler) createTodo(w http.ResponseWriter, r *http.Request) {
+func (h *TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 	var req struct {
 		Title string `json:"title"`
 	}
